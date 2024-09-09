@@ -1,0 +1,5 @@
+{% macro CardHeader(className='') %}
+<div class="{{ className }} flex flex-col space-y-1.5 p-6">
+  {{ caller() }}
+</div>
+{% endmacro %}

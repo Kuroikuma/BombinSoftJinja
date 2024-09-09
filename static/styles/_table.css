@@ -1,0 +1,137 @@
+/* Configuraciones personalizadas del datatable */
+.table {
+  line-height: 21px;
+  color: black;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.table * {
+  vertical-align: middle !important;
+}
+.table tr > * {
+  border-bottom: 1px solid #9d9d9d;
+}
+.table tr:hover td {
+  background-color: #9d9d9d 10;
+}
+.table thead th, .table tfoot th {
+  font-weight: 500 !important;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.01071em;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: start;
+  padding: 16px !important;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #fff;
+  border-collapse: collapse;
+}
+.table thead th:first-child, .table tfoot th:first-child {
+  padding-left: 12px;
+}
+.table thead th:last-child, .table tfoot th:last-child {
+  text-align: end;
+}
+.table tbody td {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  display: table-cell;
+  vertical-align: inherit;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  text-align: left;
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.87);
+  border-collapse: collapse;
+}
+.table tbody td:first-child {
+  padding-left: 12px;
+}
+.table tbody td:last-child {
+  white-space: nowrap;
+  text-align: end;
+  border-right-width: 1px;
+  padding-right: 12px;
+}
+.table tbody td:last-child p {
+  text-align: center;
+}
+.table tbody td .switch {
+  margin: auto;
+  width: 36px;
+}
+.in-white td {
+  background-color: var(--background-body) !important;
+}
+/* Estilos para el ordering */
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+/* Estilos para las tablas de estilo matricial */
+table[type="matricial"] td {
+  height: 50px;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  font-weight: normal !important;
+  border-right: 1px solid #ddd !important;
+  border-bottom: 1px solid #ddd !important;
+  box-shadow: none;
+  clip-path: none;
+  background-color: #fff;
+}
+table[type="matricial"] th, table[type="matricial"] thead td {
+  font-weight: 500 !important;
+  height: 50px !important;
+  border: none !important;
+  border-bottom: 1px solid #ddd !important;
+  border-right: 1px solid #ddd !important;
+  padding-left: 12px;
+  padding-right: 12px;
+  background-color: #fff;
+}
+table[type="no-dtb"] td {
+  font-weight: normal !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  box-shadow: none;
+  clip-path: none;
+  border: none;
+  border-right: 1px solid #ddd !important;
+  border-bottom: 1px solid #ddd !important;
+  height: 50px !important;
+  padding: 6px;
+  background-color: #fff;
+}
+table[type="no-dtb"] th {
+  font-weight: 500 !important;
+  height: 45px !important;
+  border: none !important;
+  border-bottom: 1px solid #ddd !important;
+  border-right: 1px solid #ddd !important;
+  padding-left: 12px;
+  padding-right: 12px;
+  background-color: #fff;
+}
+td.child, .even th {
+  text-align: left !important;
+}
+.table-mt0 .dataTables_wrapper {
+  margin-top: 0 !important;
+}
+.dataTables_processing {
+  top: 43px !important;
+  padding: 0;
+  justify-content: center;
+  gap: 12px;
+  align-items: center;
+  height: 100% !important;
+}
+.dataTables_processing .mat-progress-spinner {
+  width: 40px;
+  height: 40px;
+}

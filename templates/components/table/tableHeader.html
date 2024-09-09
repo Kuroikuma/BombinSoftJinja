@@ -1,0 +1,6 @@
+
+{% macro TableHeader(className='') %}
+  <thead  class="[&_tr]:border-b {{ className }}">
+    {{ caller() }}
+  </thead >
+{% endmacro %}

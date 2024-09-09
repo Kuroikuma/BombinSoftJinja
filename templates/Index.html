@@ -1,0 +1,400 @@
+{% from "./components/card/Card.html" import Card %}
+{% from "./components/card/CardHeader.html" import CardHeader %}
+{% from "./components/card/CardTitle.html" import CardTitle %}
+{% from "./components/card/CardContent.html" import CardContent %}
+{% from "./components/table/table.html" import Table %}
+{% from "./components/table/tableHeader.html" import TableHeader %}
+{% from "./components/table/tableRow.html" import TableRow %}
+{% from "./components/table/tableHead.html" import TableHead %}
+{% from "./components/table/tableBody.html" import TableBody %}
+{% from "./components/table/tableCell.html" import TableCell %}
+
+
+{% set livestock = {
+  "id": "LV-12345",
+  "name": "Bessie",
+  "species": "Cow",
+  "breed": "Holstein",
+  "sex": "Female",
+  "dateOfBirth": "2018-05-15",
+  "age": "5 years",
+  "placeOfBirth": "Farm Meadows",
+  "dateOfAcquisition": "2018-05-15",
+  "currentOwner": "Green Acres Farm",
+  "previousOwner": "N/A",
+  "weight": "650 kg",
+  "height": "145 cm",
+  "coatColor": "Black and White",
+  "distinguishingMarks": "Heart-shaped spot on left flank",
+  "breedingStatus": "Not spayed",
+  "breedingHistory": "3 successful pregnancies",
+  "offspring": [
+      {
+          "id": "LV-20190310",
+          "name": "Daisy",
+          "dateOfBirth": "2019-03-10",
+          "sex": "Female",
+          "currentStatus": "On farm"
+      },
+      {
+          "id": "LV-20200415",
+          "name": "Buster",
+          "dateOfBirth": "2020-04-15",
+          "sex": "Male",
+          "currentStatus": "Sold"
+      },
+      {
+          "id": "LV-20210520",
+          "name": "Clover",
+          "dateOfBirth": "2021-05-20",
+          "sex": "Female",
+          "currentStatus": "On farm"
+      },
+      {
+          "id": "LV-20220630",
+          "name": "Bella",
+          "dateOfBirth": "2022-06-30",
+          "sex": "Female",
+          "currentStatus": "On farm"
+      },
+      {
+          "id": "LV-20230715",
+          "name": "Buck",
+          "dateOfBirth": "2023-07-15",
+          "sex": "Male",
+          "currentStatus": "On farm"
+      }
+  ],
+  "transferHistory": [
+      {
+          "date": "2018-05-15",
+          "from": "Farm Meadows",
+          "to": "Green Acres Farm",
+          "reason": "Born"
+      },
+      {
+          "date": "2020-03-01",
+          "from": "Green Acres Farm",
+          "to": "Sunny Valley Ranch",
+          "reason": "Temporary breeding program"
+      },
+      {
+          "date": "2020-09-15",
+          "from": "Sunny Valley Ranch",
+          "to": "Green Acres Farm",
+          "reason": "Return from breeding program"
+      },
+      {
+          "date": "2022-07-10",
+          "from": "Green Acres Farm",
+          "to": "Mountain View Dairy",
+          "reason": "Sold"
+      },
+      {
+          "date": "2023-01-20",
+          "from": "Mountain View Dairy",
+          "to": "Green Acres Farm",
+          "reason": "Repurchased"
+      }
+    ]
+  }
+%}
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='/styles/output.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='/styles/_table.css') }}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+</head>
+
+<body>
+  <div class="w-full max-w-7xl mx-auto p-4">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      <!-- prettier-ignore -->
+      {% call Card('lg:col-span-2 lg:row-span-2') %}
+      <!-- prettier-ignore -->
+        {% call CardHeader('flex !flex-row items-center gap-4') %}
+          <div class="relative flex w-20 h-20 shrink-0 overflow-hidden rounded-full">
+            <img src="https://github.com/shadcn.png" alt="@shadcn" class="aspect-square h-full w-full">
+            <div class="flex h-full w-full items-center justify-center rounded-full bg-muted">CN</div>
+          </div>
+          <div>
+            {% call CardTitle('text-2xl') %}
+              Bessie
+            {% endcall %}
+            <div class="flex gap-2 mt-2">
+              <div
+                class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80">
+                Cow
+              </div>
+              <div
+                class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground">
+                Holstein
+              </div>
+            </div>
+          </div>
+        {% endcall %}
+
+        {% call CardContent('grid gap-4') %}
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <h3 class="text-sm font-medium">Identification Number (ID)</h3>
+              <p class="text-sm text-muted-foreground">LV-12345</p>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-sm font-medium">Sex</h3>
+              <p class="text-sm text-muted-foreground">Female</p>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-sm font-medium">Date of Birth</h3>
+              <p class="text-sm text-muted-foreground">2018-05-15</p>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-sm font-medium">Age</h3>
+              <p class="text-sm text-muted-foreground">5 years</p>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-sm font-medium">Place of Birth</h3>
+            <p class="text-sm text-muted-foreground">Farm Meadows</p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <h3 class="text-sm font-medium">Date of Acquisition</h3>
+              <p class="text-sm text-muted-foreground">2018-05-15</p>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-sm font-medium">Current Owner</h3>
+              <p class="text-sm text-muted-foreground">Green Acres Farm"</p>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-sm font-medium">Previous Owner</h3>
+            <p class="text-sm text-muted-foreground">N/A</p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <h3 class="text-sm font-medium">Weight</h3>
+              <p class="text-sm text-muted-foreground">650 kg</p>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-sm font-medium">Height</h3>
+              <p class="text-sm text-muted-foreground">145 cm</p>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-sm font-medium">Coat Color</h3>
+            <p class="text-sm text-muted-foreground">Black and White</p>
+          </div>
+          <div class="space-y-1">
+            <h3 class="text-sm font-medium">Distinguishing Marks</h3>
+            <p class="text-sm text-muted-foreground">Heart-shaped spot on left flank</p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <h3 class="text-sm font-medium">Breeding Status</h3>
+              <p class="text-sm text-muted-foreground">Not spayed</p>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-sm font-medium">Breeding History</h3>
+              <p class="text-sm text-muted-foreground">3 successful pregnancies</p>
+            </div>
+          </div>
+        {% endcall %}
+      {% endcall %}
+
+      {% call Card('lg:col-span-3') %}
+        {% call CardHeader('') %}
+          {% call CardTitle('') %}
+          Offspring History
+          {% endcall %}
+          {% endcall %}
+        {% call CardContent('') %}
+          {% call Table('') %}
+            {% call TableHeader('') %}
+              {% call TableRow('') %}
+                {% call TableHead('') %} ID {% endcall %}
+                {% call TableHead('') %} Name {% endcall %}
+                {% call TableHead('') %} Date of Birth {% endcall %}
+                {% call TableHead('') %} Sex {% endcall %}
+                {% call TableHead('') %} Status {% endcall %}
+              {% endcall %}
+            {% endcall %}
+
+            {% call TableBody('') %}
+              {% for offspring in livestock.offspring %}
+                {% call TableRow('') %}
+                  {% call TableCell('') %} {{offspring.id}} {% endcall %}
+                  {% call TableCell('') %} {{offspring.name}}  {% endcall %}
+                  {% call TableCell('') %} {{offspring.dateOfBirth}}  {% endcall %}
+                  {% call TableCell('') %} {{offspring.sex}}  {% endcall %}
+                  {% call TableCell('') %} {{offspring.currentStatus}}  {% endcall %}
+                {% endcall %}
+              {% endfor %}
+            {% endcall %}
+          {% endcall %}
+        {% endcall %}
+      {% endcall %}
+
+      {% call Card('lg:col-span-3') %}
+        {% call CardHeader('') %}
+          {% call CardTitle('') %}
+            Herd Transfer History
+          {% endcall %}
+        {% endcall %}
+        {% call CardContent('') %}
+          {% call Table('') %}
+            {% call TableHeader('') %}
+              {% call TableRow('') %}
+                {% call TableHead('') %} Date {% endcall %}
+                {% call TableHead('') %} From {% endcall %}
+                {% call TableHead('') %} To {% endcall %}
+                {% call TableHead('') %} Reason {% endcall %}
+              {% endcall %}
+            {% endcall %}
+
+            {% call TableBody('') %}
+              {% for transfer in livestock.transferHistory %}
+                {% call TableRow('') %}
+                  {% call TableCell('') %} {{transfer.date}} {% endcall %}
+                  {% call TableCell('') %} {{transfer.from}}  {% endcall %}
+                  {% call TableCell('') %} {{transfer.to}}  {% endcall %}
+                  {% call TableCell('') %} {{transfer.reason}}  {% endcall %}
+                {% endcall %}
+              {% endfor %}
+            {% endcall %}
+          {% endcall %}
+        {% endcall %}
+      {% endcall %}
+
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <script>
+      const dtb = (id, options) => {
+        const table = document.getElementById(id);
+        if (!table) return;
+    
+        const type = table.getAttribute("type");
+        if (type == "matricial") {
+            if (options == null) options = { responsive: true };
+            else options.responsive = false;
+            options["type"] = type;
+        }
+    
+        // @ts-ignore
+        const _dtbConfig = $(`#${id}`).DataTable({
+            lengthMenu: [
+                [15, 25, 50, -1],
+                [15, 25, 50, "Todas"],
+            ],
+            language: {
+                lengthMenu: "_MENU_",
+                zeroRecords:
+                    "<p style='padding-bottom: 0;'> Informacion no Cargada ó No encontrada</p>",
+                info: "Mostrando página _PAGE_ de _PAGES_",
+                infoEmpty: "Ningún registro disponible",
+                infoFiltered:
+                    "(información filtrada desde _MAX_ registros en total)",
+                paginate: {
+                    first: "Primero",
+                    last: "Ultimo",
+                    next: "Próximo",
+                    previous: "Previo",
+                },
+                search: "",
+    
+                processing: `
+                        <div class="mat-progress-spinner" style="margin: auto; margin-bottom: 12px;">
+                            <svg preserveAspectRatio="xMidYMid meet" focusable="false" viewBox="0 0 100 100">
+                                <circle cx="50%" cy="50%" r="45" class="ng-star-inserted"
+                                    style="animation-name: mat-progress-spinner-stroke-rotate-100;stroke-dasharray: 282.743px;stroke-width: 10%;width: 25px;height: 25px;">
+                                </circle>
+                            </svg>
+                        </div>
+    
+                        <p>Cargando...</p>
+                    `,
+            },
+            processing: true,
+    
+            order: [],
+            pageLength: 15,
+            paging:
+                eval(table?.getAttribute("dataTable-pagging")) == false
+                    ? false
+                    : true,
+            responsive: eval(table?.getAttribute("dataTable-responsive")) || true,
+    
+            ...options,
+        });
+    
+        datatableStyle(id, options || {});
+    
+        // @ts-ignore
+        window.dataTable = _dtbConfig;
+        dataTable = _dtbConfig;
+        return _dtbConfig;
+    };
+    
+    /* Agregando estilos con nueva img al datatable */
+    const datatableStyle = (id, options) => {
+        const table = document.querySelector(`#${id}_wrapper`);
+        if (!table) return;
+    
+        const thead = table.querySelector("thead");
+        if (table == null || table.getAttribute("procesada") == "true") return;
+    
+        // Procesando buscado
+        const ubicacion_buscador = document.createElement("div");
+        if (table.querySelector(`.dataTables_filter`)) {
+            ubicacion_buscador.appendChild(
+                table.querySelector(".dataTables_filter")
+            );
+        }
+    
+        if (table.querySelector(".dataTables_length")) {
+            ubicacion_buscador.appendChild(
+                table.querySelector(".dataTables_length")
+            );
+        }
+    
+        ubicacion_buscador.classList.add("dt_filter");
+        ubicacion_buscador
+            .querySelector('input[type="search"]')
+            ?.setAttribute("placeholder", "Buscar");
+    
+        try {
+            table.insertBefore(ubicacion_buscador, table.querySelector("table"));
+        } catch (ex) {}
+    
+        // Procesando el thead
+    
+        // - Setiando el alto del thead
+        thead.children[0].setAttribute("height", "45px");
+    
+        if (options.type != "matricial") {
+            // - Poniendo el espaciado entre la thead
+            const rowSpaceHeader = document.createElement("tr");
+            thead.append(rowSpaceHeader);
+        }
+    
+        table.setAttribute("procesada", "true");
+    };
+
+    dtb("myTable");
+    </script>
+</body>
+
+</html>

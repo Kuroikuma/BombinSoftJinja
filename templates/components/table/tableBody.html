@@ -1,0 +1,5 @@
+{% macro TableBody(className='') %}
+  <tbody  class="[&_tr:last-child]:border-0 {{ className }}">
+    {{ caller() }}
+  </tbody >
+{% endmacro %}

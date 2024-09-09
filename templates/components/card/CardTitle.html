@@ -1,0 +1,5 @@
+{% macro CardTitle(className='') %}
+<h3 class="font-semibold leading-none tracking-tight {{ className }}">
+  {{ caller() }}
+</h3>
+{% endmacro %}
