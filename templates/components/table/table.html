@@ -1,6 +1,6 @@
-{% macro Table(className='') %}
+{% macro Table(className='', id='') %}
 <div class="relative w-full overflow-auto">
-  <table id="myTable" class="w-full caption-bottom text-sm {{ className }}">
+  <table id="{{id}}" class="w-full caption-bottom text-sm {{ className }}">
     {{ caller() }}
   </table>
 </div>

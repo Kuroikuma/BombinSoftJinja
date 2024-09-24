@@ -1,0 +1,121 @@
+{% extends 'layout.html' %}
+{% from "./components/card/Card.html" import Card %}
+{% from "./components/card/CardContent.html" import CardContent %}
+{% from "./components/card/CardHeader.html" import CardHeader %}
+{% from "./components/card/CardTitle.html" import CardTitle %}
+
+{% block content %}
+
+<div class="flex flex-col items-center">
+  <div class="flex justify-between items-center w-3/4 p-6">
+    <h2 class="font-medium text-lg">Listado de fincas</h2>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#farmCreate">
+      Agregar finca
+    </button>
+  </div>
+
+  <div class="flex w-3/4">
+    {% call Card('lg:col-span-3 w-full') %}
+    {% call CardContent('pt-4') %}
+    <table id="myTable">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Ubicacion</th>
+          <th scope="col">Tamaño (acres)</th>
+          <th>opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="">
+          <td scope="row">Sunny acres farm</td>
+          <td>123 Main St, Anytown USA</td>
+
+          <td>50</td>
+          <td>
+            <button class="btn btn-sm btn-primary">Detalle</button>
+            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#farmEdit">Editar</button>
+            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#farmDelete">Eliminar</button>
+          </td>
+        </tr>
+        <tr class="">
+          <td scope="row">Greenfild farm</td>
+          <td>456 Oak Rd, Smalltown USA</td>
+
+          <td>75</td>
+          <td>
+            <button class="btn btn-sm btn-primary">Detalle</button>
+            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#farmEdit">Editar</button>
+            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#farmDelete">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {% endcall %}
+    {% endcall %}
+  </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="farmCreate" tabindex="-1" aria-labelledby="farmCreateLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="farmCreateLabel">Nueva finca</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% include './components/forms/formFarm.html' %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="farmEdit" tabindex="-1" aria-labelledby="farmEditLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="farmCreateLabel">Editar finca</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% include './components/forms/formFarm.html' %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="farmDelete" tabindex="-1" aria-labelledby="farmDeleteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="farmDeleteLabel">Eliminar finca</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Esta seguro que desea eliminar la finca?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  dtb("myTable");
+</script>
+{% endblock %}

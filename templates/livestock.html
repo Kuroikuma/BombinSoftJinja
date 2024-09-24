@@ -1,0 +1,143 @@
+{% extends 'layout.html' %}
+{% from "./components/card/Card.html" import Card %}
+{% from "./components/card/CardContent.html" import CardContent %}
+{% from "./components/card/CardHeader.html" import CardHeader %}
+{% from "./components/card/CardTitle.html" import CardTitle %}
+
+{% block content %}
+
+<div class="flex flex-col items-center">
+  <div class="flex justify-between items-center w-3/4 p-6">
+    <h2 class="font-medium text-lg">Listado de ganado</h2>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#livestockCreate">
+      Agregar ganado
+    </button>
+  </div>
+
+  <div class="flex w-3/4">
+    {% call Card('lg:col-span-3 w-full') %}
+    {% call CardContent('pt-4') %}
+    <table id="myTable">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Raza</th>
+          <th scope="col">Edad</th>
+          <th scope="col">Peso</th>
+          <th scope="col">Estado</th>
+          <th>opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="">
+          <td scope="row">Cat0001</td>
+          <td>Angus</td>
+
+          <td>3</td>
+          <td>1200 lbs</td>
+
+          <td>saludable</td>
+          <td>
+            <button class="btn btn-sm btn-primary">Detalle</button>
+            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#livestockEdit">Editar</button>
+            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#livestockDelete">Eliminar</button>
+          </td>
+        </tr>
+        <tr class="">
+          <td scope="row">Cat0002</td>
+          <td>Hereford</td>
+
+          <td>5</td>
+          <td>1500 lbs</td>
+
+          <td>enfermo</td>
+          <td>
+            <button class="btn btn-sm btn-primary">Detalle</button>
+            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#livestockEdit">Editar</button>
+            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#livestockDelete">Eliminar</button>
+          </td>
+        </tr>
+        <tr class="">
+          <td scope="row">Cat0003</td>
+          <td>Charolais</td>
+
+          <td>2</td>
+          <td>900 lbs</td>
+
+          <td>embarazada</td>
+          <td>
+            <button class="btn btn-sm btn-primary">Detalle</button>
+            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#livestockEdit">Editar</button>
+            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#livestockDelete">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {% endcall %}
+    {% endcall %}
+  </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="livestockCreate" tabindex="-1" aria-labelledby="livestockCreateLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="livestockCreateLabel">Nuevo ganado</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% include './components/forms/formLivestock.html' %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="livestockEdit" tabindex="-1" aria-labelledby="livestockEditLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="livestockCreateLabel">Editar ganado</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% include './components/forms/formLivestock.html' %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="livestockDelete" tabindex="-1" aria-labelledby="livestockDeleteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="livestockDeleteLabel">Eliminar ganado</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Esta seguro que desea eliminar el ganado?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  dtb("myTable");
+</script>
+{% endblock %}
