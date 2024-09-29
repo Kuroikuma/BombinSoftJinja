@@ -1,0 +1,79 @@
+/* Estilos de la alert */
+.containerAlert-bottom {
+  width: 270px;
+  position: fixed;
+  z-index: 1000000000000000000;
+  right: 0;
+  bottom: 9px;
+}
+
+.containerAlert-top {
+  width: 270px;
+  position: fixed;
+  z-index: 1000000000000000000;
+  right: 0;
+  top: 9px;
+}
+
+.AlertPlannerApp {
+  width: 270px;
+  color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 5px 7px 20px #00000038;
+  animation: AlertOpen 0.5s forwards;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: normal;
+  /* text-transform: capitalize; */
+}
+
+.AlertPlannerApp p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.Alert-danger {
+  background: #FF4040 !important;
+}
+
+.Alert-warning {
+  background: #F7931F !important;
+}
+
+.Alert-success {
+  background: #3AB54A !important;
+}
+
+.Alert-default {
+  background: var(--color-primary);
+}
+
+@keyframes AlertOpen {
+  0% {
+      transform: translateX(150%);
+  }
+
+  75% {
+      transform: translateX(-5%);
+  }
+
+  100% {
+      transform: translateX(-9px);
+  }
+}
+
+@keyframes AlertClose {
+  0% {
+      transform: translateX(0);
+  }
+
+  25% {
+      transform: translateX(-5%);
+  }
+
+  100% {
+      transform: translateX(150%);
+  }
+}
