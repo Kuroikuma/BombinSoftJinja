@@ -1,33 +1,29 @@
-# from flask import Flask
-# app = Flask (__name__)
+from flask import Flask
+from flask_cors import CORS
+from configs.config import DEBUG, PORT
+from routes.home import home
+from routes.login import login_routes
+from routes.user import user_routes
+from routes.view import  view_routes
+from routes.finca import finca_routes
+from routes.bovino import bovino_routes
 
-# @app.route('/')
-# def principal(): return "Bienvenidos o bienvenida a mi sitio web con PYTHON"
-# @app.route('/contacto')
-# def contacto(): return "Esta es la página de contactos HOY"
-# @app.route('/lenguajeprogramacion')
-# def lenguajes(): return "Esta es la pagina de lenguajes de programación"
 
-# if __name__ == '__main__': app.run(debug=True, port= 8000)
-
-from flask import Flask, render_template
-
+##inicializando servidor
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    user = {'username': 'Juan'}
-    return render_template('home.html', title='Home', user=user)
-  
-@app.route('/Ganado')
-def ganado():
-  user = {'username': 'Juan'}
-  return render_template('livestock.html', title='Home', user=user)
 
-@app.route('/Finca')
-def finca():
-  user = {'username': 'Juan'}
-  return render_template('farm.html', title='Home', user=user)
+#habilitando cors
+CORS(app)
+
+
+#routes
+app.register_blueprint(home)
+app.register_blueprint(login_routes)
+app.register_blueprint(user_routes)
+app.register_blueprint(view_routes)
+app.register_blueprint(finca_routes)
+app.register_blueprint(bovino_routes)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=DEBUG, port=PORT)

@@ -1,0 +1,35 @@
+@api = http://127.0.0.1:5000
+
+@api2 = https://bovinsoft-backend.onrender.com/
+
+###
+GET {{api}}
+
+###
+POST {{api}}/signin
+Content-Type: application/json
+
+{
+    "nombre":"Enrique",
+    "apellido":"Fernandez",
+    "fecha_nacimiento":"YYYY-MM-DD",
+    "email":"glianjose@gmail.com",
+    "password":"quique123"
+}
+
+###
+POST {{api}}/login
+Content-Type: application/json
+
+{
+    "email":"josethgatica@gmail.com",
+    "password":"MANZANAREZ23"
+}
+
+
+##obtner usuarios
+####
+GET {{api}}/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJFbnJpcXVlIiwiYXBlbGxpZG8iOiJGZXJuYW5kZXoiLCJlZGFkIjoiWVlZWS1NTS1ERCIsImVtYWlsIjoiZ2xpYW5qb3NlQGdtYWlsLmNvbSIsImV4cCI6MTcyNTgxMDk5MX0.JkDvtCwdiPo6mHmhgHIdp-p69ic5bjFDLA9RjkIM1Ww
+
+####eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJGcmVkZHkiLCJhcGVsbGlkbyI6IkdvbWV6IiwiZWRhZCI6MjYsImVtYWlsIjoiZ29tZXg2Nzk4QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEyJFEwMjguNDhvNnVYS1RzNWJ2c1lXUi43d0wvTC5DZ2lTQ2U5VU1YQjdOZHp5Qzdwb2g2emZTIiwiZXhwIjoxNzIzNDE2NTM5fQ.VstGXT1CSgMahM7iTPxYgB9S4gFW73IpRiZpBwyE7ik
