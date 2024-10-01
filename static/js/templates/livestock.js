@@ -25,12 +25,73 @@ const actionModal = (a) => {
   }
 }
 
+function seleccionarValor(estado, modal, idSelect) {
+  // Obtener el elemento <select> por su ID
+  const selectElement = modal.querySelector(`#${idSelect}`);
+
+  // Verificar si el elemento existe
+  if (selectElement) {
+      // Establecer el valor del <select> al estado pasado como parámetro
+      selectElement.value = estado;
+  } else {
+      console.error('Elemento <select> no encontrado');
+  }
+}
+
 const loadDatawithEdit = (id, modal) => {
   let data = livesctockData.find((item) => item._id === id)
 
   modal.querySelector('#Nombre').value = data.nombre
   modal.querySelector('#Raza').value = data.raza
-  modal.querySelector('#EstadoSalud').value = data.estadoSalud
+  seleccionarValor(data.estadoSalud.toUpperCase(), modal, "EstadoSalud")
+  modal.querySelector("#Edad").value = data.edad
+  modal.querySelector("#FechaNacimiento").value = data.fechaNacimiento
+  modal.querySelector("#Peso").value = data.peso
+  seleccionarValor(data.tipo.toUpperCase(), modal, "Tipo")
+  seleccionarValor(data.genero.toUpperCase(), modal, "Genero")
+}
+
+const createLivestock = (a) => {
+  let isViewByFarm = location.pathname.includes('/Ganado/PorFinca/')
+
+  let fincaId = isViewByFarm
+    ? location.pathname.replace('/Ganado/PorFinca/', '')
+    : null
+
+  let modal = document.querySelector('#livestockCreate')
+
+  let token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJKdW5pb3IiLCJhcGVsbGlkbyI6Ikh1cnRhZG8iLCJlZGFkIjoiIiwiZW1haWwiOiJvZGlzZW9qNjc2QGdtYWlsLmNvbSIsInRlbGVmb25vIjoiIiwicm9sIjoiIiwiZGlyZWNjaW9uIjoiIiwidGlwb1N1c2NyaXBjaW9uIjoiIiwiZXhwIjoxNzI3ODM0MDExfQ.2ctvbua5b4rpw3diNutggc05IxkQGC9DJE5ewV0h-dY'
+
+  let nombre = modal.querySelector('#Nombre').value
+  let raza = modal.querySelector('#Raza').value
+  let estado = modal.querySelector('#EstadoSalud').value
+  let edad = modal.querySelector('#Edad').value
+  let peso = modal.querySelector('#Peso').value
+  let tipo = modal.querySelector('#Tipo').value
+  let genero = modal.querySelector('#Genero').value
+  let fechaNacimiento = modal.querySelector('#FechaNacimiento').value
+
+
+  let formData = {
+    nombre,
+    raza,
+    estadoSalud: estado.toUpperCase(),
+    edad,
+    peso,
+    tipo: tipo.toUpperCase(),
+    genero: genero.toUpperCase(),
+    fechaNacimiento,
+    fincaId
+  }
+
+  axios.post(`http://127.0.0.1:5000/api/bovino`, formData, {
+    headers: {
+      Authorization: 'Bearer ' + token, // Enviar el token en el encabezado
+    },
+  })
+
+  new Alert('Se creo el bovino exitosamente.', { type: 'success' })
 }
 
 const editLivestock = (a) => {
@@ -43,12 +104,20 @@ const editLivestock = (a) => {
   let nombre = modal.querySelector('#Nombre').value
   let raza = modal.querySelector('#Raza').value
   let estado = modal.querySelector('#EstadoSalud').value
+  let edad = modal.querySelector('#Edad').value
+  let peso = modal.querySelector('#Peso').value
+  let tipo = modal.querySelector('#Tipo').value
+  let genero = modal.querySelector('#Genero').value
 
-  const formData = new FormData()
-
-  formData.append('nombre', nombre)
-  formData.append('raza', raza)
-  formData.append('estadoSalud', estado)
+  let formData = {
+    nombre,
+    raza,
+    estadoSalud: estado.toUpperCase(),
+    edad,
+    peso,
+    tipo: tipo.toUpperCase(),
+    genero: genero.toUpperCase(),
+  }
 
   axios.put(`http://127.0.0.1:5000/api/bovino/${id}`, formData, {
     headers: {
@@ -109,11 +178,11 @@ const loadData = async () => {
             <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#livestockDelete">Eliminar</button>`
 
     let array = [
-      element._id,
+      element.codigo,
       element.nombre,
       element.raza,
-      4,
-      1200,
+      element.edad,
+      element.peso,
       element.estadoSalud,
       boton,
     ]
@@ -130,3 +199,5 @@ addEvent(TypeEvent.click, `[data-bs-toggle="modal"]`, (e) => actionModal(e))
 addEvent(TypeEvent.click, '.btn-delete', (e) => deleteLivetock(e))
 
 addEvent(TypeEvent.click, '#livestockEdit .btn-save', (e) => editLivestock(e))
+
+addEvent(TypeEvent.click, '#livestockCreate .btn-save', (e) => createLivestock(e))

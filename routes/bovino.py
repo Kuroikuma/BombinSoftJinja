@@ -25,7 +25,7 @@ def verificar_token():
 #ruta crear bovino
 @bovino_routes.route('/api/bovino', methods=['POST'])
 def insertar_bovino_ruta():
-    return insertar_bovino(collections('bovinos'))
+    return insertar_bovino(collections('fincas'), collections('bovinos'))
 
 #ruta mostrar bovino
 @bovino_routes.route('/api/bovino/byUsers/<idUsuario>', methods=['GET'])
@@ -33,9 +33,9 @@ def obtener_bovino_por_usuario_ruta(idUsuario):
     return obtener_bovinosByUser(collections('fincas'), collections('bovinos'), idUsuario)
   
 #ruta mostrar bovino
-@bovino_routes.route('/api/bovino/byFarm/<idFinca>', methods=['GET'])
-def obtener_bovino_por_finca_ruta(idFinca):
-    return obtener_bovinosByFarm(collections('bovinos'), idFinca)
+@bovino_routes.route('/api/bovino/byFarm/<fincaId>', methods=['GET'])
+def obtener_bovino_por_finca_ruta(fincaId):
+    return obtener_bovinosByFarm(collections('bovinos'), fincaId)
 
 #ruta mostrar bovino
 @bovino_routes.route('/api/bovino/<id>', methods=['GET'])
