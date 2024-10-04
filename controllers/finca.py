@@ -73,13 +73,28 @@ def eliminar_finca(collections, id):
 def actualizar_finca(collections, id):
     try:
         finca_data = collections.find_one({'_id': ObjectId(id)})
-        finca_data_update = FincaModel(request.json)
+        
+        if finca_data is None:
+            return jsonify({"message": "Bovino no encontrado"}), 404
+        
+        nuevos_datos = request.get_json()
 
-        #insertando datos sencibles
-        finca_data_update.create_at = finca_data['create_at']
-        finca_data_update.update_at = datetime.now()
+        # Solo actualiza los campos que se pasaron en los nuevos datos
+        update_data = {}
+        if 'nombre' in nuevos_datos:
+            update_data['nombre'] = nuevos_datos['nombre']
+        if 'tamano' in nuevos_datos:
+            update_data['tamano'] = nuevos_datos['tamano']
+        if 'direccion' in nuevos_datos:
+            update_data['direccion'] = nuevos_datos['direccion']
 
-        collections.update_one({'_id': ObjectId(id)}, {"$set": finca_data_update.__dict__})
+        # Siempre actualiza la fecha de modificación
+        update_data['update_at'] = datetime.now()
+
+        # Realizar la actualización solo si hay datos nuevos
+        if update_data:
+            collections.update_one({'_id': ObjectId(id)}, {"$set": update_data})
+
         return jsonify({"message": "finca actualizada"})
     except:
         response = jsonify({"menssage":"error de peticion"})

@@ -58,7 +58,12 @@ def insertar_bovino(finca_collection, ganado_collection):
         # Insertar el nuevo bovino en la colección de ganado
         id = ganado_collection.insert_one(bovino_instance.__dict__).inserted_id
         
-        return jsonify({'id': str(id), 'codigo': codigo_bovino}), 201
+        doc = ganado_collection.find_one({'_id': id})
+        bovino_data = BovinoModel(doc).__dict__
+        bovino_data['_id'] = str(doc['_id'])
+        bovino_data['fincaId'] = str(doc['fincaId'])
+        
+        return jsonify(bovino_data), 201
     
     except Exception as e:
         response = jsonify({"message": "Error de petición", "error": str(e)})

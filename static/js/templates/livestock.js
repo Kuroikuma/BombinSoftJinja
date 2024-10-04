@@ -2,11 +2,15 @@ import { addEvent, TypeEvent } from '../config/eventListener.js'
 import { dtb } from '../config/dataTable.js'
 import Alert from '../config/Alert.js'
 
-//('[atributo="valor"]')
-
-var livesctockData = []
-
 let table = dtb('myTable')
+
+let token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJKdW5pb3IiLCJhcGVsbGlkbyI6Ikh1cnRhZG8iLCJlZGFkIjoiIiwiZW1haWwiOiJvZGlzZW9qNjc2QGdtYWlsLmNvbSIsInRlbGVmb25vIjoiIiwicm9sIjoiIiwiZGlyZWNjaW9uIjoiIiwidGlwb1N1c2NyaXBjaW9uIjoiIiwiZXhwIjoxNzI3ODM0MDExfQ.2ctvbua5b4rpw3diNutggc05IxkQGC9DJE5ewV0h-dY'
+
+let boton = `
+            <button class="btn btn-sm btn-primary">Detalle</button>
+            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#livestockEdit">Editar</button>
+            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#livestockDelete">Eliminar</button>`
 
 const actionModal = (a) => {
   let id = a.parentNode.parentNode.id
@@ -23,6 +27,11 @@ const actionModal = (a) => {
   if (idModal.includes('Edit')) {
     loadDatawithEdit(id, modal)
   }
+}
+
+const closeModal = (e) => {
+  let btn = e.querySelector(`[data-bs-dismiss="modal"]`)
+  btn.click()
 }
 
 function seleccionarValor(estado, modal, idSelect) {
@@ -51,7 +60,7 @@ const loadDatawithEdit = (id, modal) => {
   seleccionarValor(data.genero.toUpperCase(), modal, "Genero")
 }
 
-const createLivestock = (a) => {
+const createLivestock = async (a) => {
   let isViewByFarm = location.pathname.includes('/Ganado/PorFinca/')
 
   let fincaId = isViewByFarm
@@ -59,9 +68,6 @@ const createLivestock = (a) => {
     : null
 
   let modal = document.querySelector('#livestockCreate')
-
-  let token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJKdW5pb3IiLCJhcGVsbGlkbyI6Ikh1cnRhZG8iLCJlZGFkIjoiIiwiZW1haWwiOiJvZGlzZW9qNjc2QGdtYWlsLmNvbSIsInRlbGVmb25vIjoiIiwicm9sIjoiIiwiZGlyZWNjaW9uIjoiIiwidGlwb1N1c2NyaXBjaW9uIjoiIiwiZXhwIjoxNzI3ODM0MDExfQ.2ctvbua5b4rpw3diNutggc05IxkQGC9DJE5ewV0h-dY'
 
   let nombre = modal.querySelector('#Nombre').value
   let raza = modal.querySelector('#Raza').value
@@ -85,21 +91,36 @@ const createLivestock = (a) => {
     fincaId
   }
 
-  axios.post(`http://127.0.0.1:5000/api/bovino`, formData, {
+  let response = await axios.post(`http://127.0.0.1:5000/api/bovino`, formData, {
     headers: {
       Authorization: 'Bearer ' + token, // Enviar el token en el encabezado
     },
   })
 
+  livesctockData.push(response.data)
+
   new Alert('Se creo el bovino exitosamente.', { type: 'success' })
+
+  let updatedData  = [
+    response.data.codigo,
+    nombre,
+    raza,
+    edad,
+    peso,
+    estado.toUpperCase(),
+    boton
+  ]
+
+  let node = table.row.add(updatedData).draw(true).node()
+
+  node.id = response.data._id
+
+  closeModal(modal)
 }
 
 const editLivestock = (a) => {
   let id = a.dataset.id
   let modal = document.querySelector('#livestockEdit')
-
-  let token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJKdW5pb3IiLCJhcGVsbGlkbyI6Ikh1cnRhZG8iLCJlZGFkIjoiIiwiZW1haWwiOiJvZGlzZW9qNjc2QGdtYWlsLmNvbSIsInRlbGVmb25vIjoiIiwicm9sIjoiIiwiZGlyZWNjaW9uIjoiIiwidGlwb1N1c2NyaXBjaW9uIjoiIiwiZXhwIjoxNzI3ODM0MDExfQ.2ctvbua5b4rpw3diNutggc05IxkQGC9DJE5ewV0h-dY'
 
   let nombre = modal.querySelector('#Nombre').value
   let raza = modal.querySelector('#Raza').value
@@ -126,11 +147,27 @@ const editLivestock = (a) => {
   })
 
   new Alert('Se actulizo el bovino exitosamente.', { type: 'success' })
+
+  let tr = document.getElementById(id)
+
+  var row = table.row(tr.closest('tr'))
+
+  let updatedData  = [
+    row.data()[0],
+    nombre,
+    raza,
+    edad,
+    peso,
+    estado.toUpperCase(),
+    boton
+  ]
+
+  row.data(updatedData).draw();
+
+  closeModal(modal)
 }
 
 const deleteLivetock = (e) => {
-  let token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJKdW5pb3IiLCJhcGVsbGlkbyI6Ikh1cnRhZG8iLCJlZGFkIjoiIiwiZW1haWwiOiJvZGlzZW9qNjc2QGdtYWlsLmNvbSIsInRlbGVmb25vIjoiIiwicm9sIjoiIiwiZGlyZWNjaW9uIjoiIiwidGlwb1N1c2NyaXBjaW9uIjoiIiwiZXhwIjoxNzI3ODM0MDExfQ.2ctvbua5b4rpw3diNutggc05IxkQGC9DJE5ewV0h-dY'
 
   let id = e.dataset.id
   let tr = document.getElementById(id)
@@ -151,8 +188,6 @@ const deleteLivetock = (e) => {
 }
 
 const loadData = async () => {
-  let token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJKdW5pb3IiLCJhcGVsbGlkbyI6Ikh1cnRhZG8iLCJlZGFkIjoiIiwiZW1haWwiOiJvZGlzZW9qNjc2QGdtYWlsLmNvbSIsInRlbGVmb25vIjoiIiwicm9sIjoiIiwiZGlyZWNjaW9uIjoiIiwidGlwb1N1c2NyaXBjaW9uIjoiIiwiZXhwIjoxNzI3ODM0MDExfQ.2ctvbua5b4rpw3diNutggc05IxkQGC9DJE5ewV0h-dY'
 
   let isViewByFarm = location.pathname.includes('/Ganado/PorFinca/')
 
@@ -172,10 +207,6 @@ const loadData = async () => {
   livesctockData = response.data
 
   response.data.forEach((element) => {
-    let boton = `
-            <button class="btn btn-sm btn-primary">Detalle</button>
-            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#livestockEdit">Editar</button>
-            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#livestockDelete">Eliminar</button>`
 
     let array = [
       element.codigo,
