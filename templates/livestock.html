@@ -20,7 +20,8 @@
     <table id="myTable">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col">Código</th>
+          <th scope="col">Nombre</th>
           <th scope="col">Raza</th>
           <th scope="col">Edad</th>
           <th scope="col">Peso</th>
@@ -28,50 +29,7 @@
           <th>opciones</th>
         </tr>
       </thead>
-      <tbody>
-        <tr class="" id="Cat0001">
-          <td scope="row">Cat0001</td>
-          <td>Angus</td>
-
-          <td>3</td>
-          <td>1200 lbs</td>
-
-          <td>saludable</td>
-          <td>
-            <button class="btn btn-sm btn-primary">Detalle</button>
-            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#livestockEdit">Editar</button>
-            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#livestockDelete">Eliminar</button>
-          </td>
-        </tr>
-        <tr class="" id="Cat0002">
-          <td scope="row">Cat0002</td>
-          <td>Hereford</td>
-
-          <td>5</td>
-          <td>1500 lbs</td>
-
-          <td>enfermo</td>
-          <td>
-            <button class="btn btn-sm btn-primary">Detalle</button>
-            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#livestockEdit">Editar</button>
-            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#livestockDelete">Eliminar</button>
-          </td>
-        </tr>
-        <tr class="" id="Cat0003">
-          <td scope="row">Cat0003</td>
-          <td>Charolais</td>
-
-          <td>2</td>
-          <td>900 lbs</td>
-
-          <td>embarazada</td>
-          <td>
-            <button class="btn btn-sm btn-primary">Detalle</button>
-            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#livestockEdit">Editar</button>
-            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#livestockDelete">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
+      <tbody></tbody>
     </table>
     {% endcall %}
     {% endcall %}
@@ -80,6 +38,6 @@
 </div>
 
 {% include './components/modals/livestockModal.html' %}
-<script type="module" src="../static/js/templates/livestock.js"></script>
+<script type="module" src="{{ url_for('static', filename='/js/templates/livestock.js') }}"></script>
 
 {% endblock %}

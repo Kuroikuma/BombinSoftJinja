@@ -26,30 +26,7 @@
           <th>opciones</th>
         </tr>
       </thead>
-      <tbody>
-        <tr class="">
-          <td scope="row">Sunny acres farm</td>
-          <td>123 Main St, Anytown USA</td>
-
-          <td>50</td>
-          <td>
-            <button class="btn btn-sm btn-primary">Detalle</button>
-            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#farmEdit">Editar</button>
-            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#farmDelete">Eliminar</button>
-          </td>
-        </tr>
-        <tr class="">
-          <td scope="row">Greenfild farm</td>
-          <td>456 Oak Rd, Smalltown USA</td>
-
-          <td>75</td>
-          <td>
-            <button class="btn btn-sm btn-primary">Detalle</button>
-            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#farmEdit">Editar</button>
-            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#farmDelete">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
+      <tbody></tbody>
     </table>
     {% endcall %}
     {% endcall %}
@@ -59,5 +36,6 @@
 
 
 {% include './components/modals/farmModal.html' %}
+<script type="module" src="../static/js/templates/farm.js"></script>
 
 {% endblock %}
