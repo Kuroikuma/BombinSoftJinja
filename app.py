@@ -25,6 +25,8 @@ def crear_app():
   app.register_blueprint(view_routes)
   app.register_blueprint(finca_routes)
   app.register_blueprint(bovino_routes)
+  
+  return app
 
 if __name__ == '__main__':
     app = crear_app()
