@@ -12,6 +12,8 @@ let boton = `
             <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#livestockEdit">Editar</button>
             <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#livestockDelete">Eliminar</button>`
 
+let baseURl = `https://bombinsoftjinja.onrender.com/`
+
 const actionModal = (a) => {
   let id = a.parentNode.parentNode.id
 
@@ -91,7 +93,7 @@ const createLivestock = async (a) => {
     fincaId
   }
 
-  let response = await axios.post(`http://127.0.0.1:5000/api/bovino`, formData, {
+  let response = await axios.post(`${baseURl}/api/bovino`, formData, {
     headers: {
       Authorization: 'Bearer ' + token, // Enviar el token en el encabezado
     },
@@ -140,7 +142,7 @@ const editLivestock = (a) => {
     genero: genero.toUpperCase(),
   }
 
-  axios.put(`http://127.0.0.1:5000/api/bovino/${id}`, formData, {
+  axios.put(`${baseURl}/api/bovino/${id}`, formData, {
     headers: {
       Authorization: 'Bearer ' + token, // Enviar el token en el encabezado
     },
@@ -195,8 +197,8 @@ const loadData = async () => {
     ? location.pathname.replace('/Ganado/PorFinca/', '')
     : null
   let url = fincaID
-    ? `http://127.0.0.1:5000/api/bovino/byFarm/${fincaID}`
-    : 'http://127.0.0.1:5000/api/bovino/byUsers/66fa58fa8a062aa10edb5d98'
+    ? `${baseURl}/api/bovino/byFarm/${fincaID}`
+    : `${baseURl}/api/bovino/byUsers/66fa58fa8a062aa10edb5d98`
 
   let response = await axios.get(url, {
     headers: {

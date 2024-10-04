@@ -14,6 +14,8 @@ let userId = '66fa58fa8a062aa10edb5d98'
 
 let farmData = []
 
+let baseURl = `https://bombinsoftjinja.onrender.com/`
+
 const closeModal = (e) => {
   let btn = e.querySelector(`[data-bs-dismiss="modal"]`)
   btn.click()
@@ -22,7 +24,7 @@ const closeModal = (e) => {
 let table = dtb('myTable')
 
 const loadData = async () => {
-  let response = await axios.get(`http://127.0.0.1:5000/api/finca/${userId}`, {
+  let response = await axios.get(`${baseURl}/api/finca/${userId}`, {
     headers: {
       Authorization: 'Bearer ' + token, // Enviar el token en el encabezado
     },
@@ -67,7 +69,7 @@ const deleteFinca = (e) => {
   e.dataset.id = ''
   e.parentNode.querySelector('.btn-secondary').click()
 
-  axios.delete(`http://127.0.0.1:5000/api/finca/${id}`, {
+  axios.delete(`${baseURl}/api/finca/${id}`, {
     headers: {
       Authorization: 'Bearer ' + token, // Enviar el token en el encabezado
     },
@@ -93,7 +95,7 @@ const createFarm = async (a) => {
     idUsuario: userId
   }
 
-  let response = await axios.post(`http://127.0.0.1:5000/api/finca`, formData, {
+  let response = await axios.post(`${baseURl}/api/finca`, formData, {
     headers: {
       Authorization: 'Bearer ' + token, // Enviar el token en el encabezado
     },
@@ -134,7 +136,7 @@ const editLivestock = (a) => {
     direccion,
   }
 
-  axios.put(`http://127.0.0.1:5000/api/finca/${id}`, formData, {
+  axios.put(`${baseURl}/api/finca/${id}`, formData, {
     headers: {
       Authorization: 'Bearer ' + token, // Enviar el token en el encabezado
     },
