@@ -8,7 +8,7 @@ from routes.view import  view_routes
 from routes.finca import finca_routes
 from routes.bovino import bovino_routes
 
-def create_app():
+def crear_app():
 
   ##inicializando servidor
   app = Flask(__name__)
@@ -27,5 +27,5 @@ def create_app():
   app.register_blueprint(bovino_routes)
 
 if __name__ == '__main__':
-    app = create_app()
+    app = crear_app()
     app.run(debug=DEBUG, port=PORT)
