@@ -88,6 +88,22 @@ const createFarm = async (a) => {
   let tamano = modal.querySelector('#Tamaño').value
   let direccion = modal.querySelector('#Direccion').value
 
+  var forms = modal.querySelector('.needs-validation')
+
+  let validated = true
+
+  // Bucle sobre ellos y evitar el envío
+debugger
+  if (!forms.checkValidity()) {
+    validated = false
+  }
+
+  debugger
+
+  forms.classList.add('was-validated')
+
+  if (!validated) return new Alert("No se logro agregar la finca", { type: 'danger' })
+
   let formData = {
     nombre,
     tamano,
